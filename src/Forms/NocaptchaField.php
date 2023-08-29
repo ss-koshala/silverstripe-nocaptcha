@@ -249,6 +249,9 @@ class NocaptchaField extends FormField {
         Requirements::customCSS('.nocaptcha { display: none !important; }', self::class);
         if ($this->getHandleSubmitEvents()) {
 
+            echo '<pre>'.print_r('check is amp: ',1);
+            echo '<pre>'.print_r(AMPDirector::is_amp(),1);die();
+
             if (AMPDirector::is_amp()) {
                 Requirements::includeInHTML('<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='.urlencode($this->getSiteKey()).'&onload=noCaptchaFormRender" class="recaptcha"></amp-script>');
             } else {
