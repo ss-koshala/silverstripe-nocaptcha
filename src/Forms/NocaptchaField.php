@@ -255,19 +255,18 @@ class NocaptchaField extends FormField {
                 '<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='. urlencode($this->getSiteKey()) .'&onload=noCaptchaFormRender" class="cap-v3-1"></amp-script>',
                 'v3_1'
             );
-            Requirements::insertHeadTags(
-                '<amp-script layout="container" src="/_resources/vendor/undefinedoffset/silverstripe-nocaptcha/javascript/NocaptchaField_v3.js" class="cap-v3-2"></amp-script>',
-                'v3_2'
-            );
+//            Requirements::insertHeadTags(
+//                '<amp-script layout="container" src="/_resources/vendor/undefinedoffset/silverstripe-nocaptcha/javascript/NocaptchaField_v3.js" class="cap-v3-2"></amp-script>',
+//                'v3_2'
+//            );
 
 
             $form = $this->getForm();
             $helper = $form->getTemplateHelper();
             $id = $helper->generateFormID($form);
 
-            Requirements::insertHeadTags(
-                "<script id='v3-custom' type='text/plain' target='amp-script'>var _noCaptchaForms=_noCaptchaForms || [];_noCaptchaForms.push('". $id . "');</script>",
-                'NocaptchaForm-' . $id
+            Requirements::includeInHTML(
+                "<script id='v3-custom' type='text/plain' target='amp-script'>var _noCaptchaForms=_noCaptchaForms || [];_noCaptchaForms.push('". $id . "');</script>"
             );
         } else {
             Requirements::javascript('https://www.google.com/recaptcha/api.js?render=' . urlencode($this->getSiteKey()));
