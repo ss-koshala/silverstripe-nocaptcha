@@ -251,9 +251,8 @@ class NocaptchaField extends FormField {
 
         if ($this->getHandleSubmitEvents()) {
 
-            Requirements::insertHeadTags(
-                '<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='. urlencode($this->getSiteKey()) .'&onload=noCaptchaFormRender" class="cap-v3-1"></amp-script>',
-                'v3_1'
+            Requirements::includeInHTML(
+                '<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='. urlencode($this->getSiteKey()) .'&onload=noCaptchaFormRender" class="cap-v3-1"></amp-script>'
             );
 //            Requirements::insertHeadTags(
 //                '<amp-script layout="container" src="/_resources/vendor/undefinedoffset/silverstripe-nocaptcha/javascript/NocaptchaField_v3.js" class="cap-v3-2"></amp-script>',
