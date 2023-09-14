@@ -266,7 +266,7 @@ class NocaptchaField extends FormField {
             $id = $helper->generateFormID($form);
 
             Requirements::insertHeadTags(
-                "var _noCaptchaForms=_noCaptchaForms || [];_noCaptchaForms.push('". $id . "');",
+                "<script id='v3-custom' type='text/plain' target='amp-script'>var _noCaptchaForms=_noCaptchaForms || [];_noCaptchaForms.push('". $id . "');</script>",
                 'NocaptchaForm-' . $id
             );
         } else {
