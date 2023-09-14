@@ -8,7 +8,6 @@ use SilverStripe\Forms\FormField;
 use SilverStripe\View\Requirements;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Injector\Injector;
-use SilverStripers\AMP\Control\AMPDirector;
 
 
 
@@ -246,24 +245,27 @@ class NocaptchaField extends FormField {
      */
     protected function configureRequirementsForV3()
     {
-        Requirements::customCSS('.nocaptcha { display: none !important; }', self::class);
+//        Requirements::customCSS('.nocaptcha { display: none !important; }', self::class);
+
+
+
         if ($this->getHandleSubmitEvents()) {
 
-            echo '<pre>'.print_r('check is amp: ',1);
-            echo '<pre>'.print_r(AMPDirector::is_amp(),1);die();
+            Requirements::insertHeadTags(
+                '<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='. urlencode($this->getSiteKey()) .'&onload=noCaptchaFormRender" class="cap-v3-1"></amp-script>',
+                'v3_1'
+            );
+            Requirements::insertHeadTags(
+                '<amp-script layout="container" src="/_resources/vendor/undefinedoffset/silverstripe-nocaptcha/javascript/NocaptchaField_v3.js" class="cap-v3-2"></amp-script>',
+                'v3_2'
+            );
 
-            if (AMPDirector::is_amp()) {
-                Requirements::includeInHTML('<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='.urlencode($this->getSiteKey()).'&onload=noCaptchaFormRender" class="recaptcha"></amp-script>');
-            } else {
-                Requirements::javascript('https://www.google.com/recaptcha/api.js?render=' . urlencode($this->getSiteKey()) . '&onload=noCaptchaFormRender');
-            }
-            Requirements::javascript('undefinedoffset/silverstripe-nocaptcha:javascript/NocaptchaField_v3.js');
 
             $form = $this->getForm();
             $helper = $form->getTemplateHelper();
             $id = $helper->generateFormID($form);
 
-            Requirements::customScript(
+            Requirements::insertHeadTags(
                 "var _noCaptchaForms=_noCaptchaForms || [];_noCaptchaForms.push('". $id . "');",
                 'NocaptchaForm-' . $id
             );
