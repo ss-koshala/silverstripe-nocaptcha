@@ -246,14 +246,11 @@ class NocaptchaField extends FormField {
     protected function configureRequirementsForV3()
     {
 //        Requirements::customCSS('.nocaptcha { display: none !important; }', self::class);
-
-
-
         if ($this->getHandleSubmitEvents()) {
 
-            Requirements::includeInHTML(
-                '<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='. urlencode($this->getSiteKey()) .'&onload=noCaptchaFormRender" class="cap-v3-1"></amp-script>'
-            );
+//            Requirements::includeInHTML(
+//                '<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='. urlencode($this->getSiteKey()) .'&onload=noCaptchaFormRender" class="cap-v3-1"></amp-script>'
+//            );
 //            Requirements::insertHeadTags(
 //                '<amp-script layout="container" src="/_resources/vendor/undefinedoffset/silverstripe-nocaptcha/javascript/NocaptchaField_v3.js" class="cap-v3-2"></amp-script>',
 //                'v3_2'
@@ -264,9 +261,8 @@ class NocaptchaField extends FormField {
             $helper = $form->getTemplateHelper();
             $id = $helper->generateFormID($form);
 
-            Requirements::includeInHTML(
-                "<script id='v3-custom' type='text/plain' target='amp-script'>var _noCaptchaForms=_noCaptchaForms || [];_noCaptchaForms.push('". $id . "');</script>"
-            );
+            Requirements::includeInHTML('<amp-script layout="container" src="https://www.google.com/recaptcha/api.js?render='. urlencode($this->getSiteKey()) .'&onload=noCaptchaFormRender" class="cap-v3-1"></amp-script>');
+            Requirements::includeInHTML("<script id='v3-custom' type='text/plain' target='amp-script'>var _noCaptchaForms=_noCaptchaForms || [];_noCaptchaForms.push('". $id . "');</script>");
         } else {
             Requirements::javascript('https://www.google.com/recaptcha/api.js?render=' . urlencode($this->getSiteKey()));
             Requirements::javascript('undefinedoffset/silverstripe-nocaptcha:javascript/NocaptchaField_noHandler_v3.js');
