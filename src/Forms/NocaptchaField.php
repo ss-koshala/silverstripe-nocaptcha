@@ -212,23 +212,18 @@ class NocaptchaField extends FormField {
     protected function configureRequirementsForV2()
     {
 //        Requirements::customScript(
-//            "(function() {\n" .
-//                "var gr = document.createElement('script'); gr.type = 'text/javascript'; gr.async = true;\n" .
-//                "gr.src = ('https:' == document.location.protocol ? 'https://www' : 'http://www') + " .
-//                "'.google.com/recaptcha/api.js?render=explicit&hl=" .
-//                Locale::getPrimaryLanguage(i18n::get_locale()) .
-//                "&onload=noCaptchaFieldRender';\n" .
-//                "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gr, s);\n" .
-//            "})();\n",
-//            'NocaptchaField-lib'
-//        );
-
-        Requirements::includeInHTML(
-            "<script id='v2-custom' type='text/plain' target='amp-script'>(function() {var gr = document.createElement('script'); gr.type = 'text/javascript'; gr.async = true;gr.src = ('https:' == document.location.protocol ? 'https://www' : 'http://www') +'.google.com/recaptcha/api.js?render=explicit&hl=".Locale::getPrimaryLanguage(i18n::get_locale())."&onload=noCaptchaFieldRender';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gr, s);})();</script>"
-        );
-
-        if ($this->getHandleSubmitEvents()) {
-            $exemptActionsString = implode("' , '", $this->getForm()->getValidationExemptActions());
+//        "(function() {\n" .
+//        "var gr = document.createElement('script'); gr.type = 'text/javascript'; gr.async = true;\n" .
+//        "gr.src = ('https:' == document.location.protocol ? 'https://www' : 'http://www') + " .
+//        "'.google.com/recaptcha/api.js?render=explicit&hl=" .
+//        Locale::getPrimaryLanguage(i18n::get_locale()) .
+//        "&onload=noCaptchaFieldRender';\n" .
+//        "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gr, s);\n" .
+//        "})();\n",
+//        'NocaptchaField-lib'
+//    );
+//        if ($this->getHandleSubmitEvents()) {
+//            $exemptActionsString = implode("' , '", $this->getForm()->getValidationExemptActions());
 //            Requirements::javascript('undefinedoffset/silverstripe-nocaptcha:javascript/NocaptchaField.js');
 //            Requirements::customScript(
 //                "var _noCaptchaFields=_noCaptchaFields || [];_noCaptchaFields.push('".$this->ID()."');" .
@@ -236,18 +231,13 @@ class NocaptchaField extends FormField {
 //                "_noCaptchaValidationExemptActions.push('" . $exemptActionsString . "');",
 //                "NocaptchaField-" . $this->ID()
 //            );
-
-            Requirements::includeInHTML(
-                "<script id='v3-custom' type='text/plain' target='amp-script'>var _noCaptchaFields=_noCaptchaFields || [];_noCaptchaFields.push('".$this->ID()."');var _noCaptchaValidationExemptActions=_noCaptchaValidationExemptActions || [];_noCaptchaValidationExemptActions.push('" . $exemptActionsString . "');</script>"
-            );
-
-        } else {
-            Requirements::customScript(
-                "var _noCaptchaFields=_noCaptchaFields || [];_noCaptchaFields.push('".$this->ID()."');",
-                "NocaptchaField-" . $this->ID()
-            );
-            Requirements::javascript('undefinedoffset/silverstripe-nocaptcha:javascript/NocaptchaField_noHandler_v2.js');
-        }
+//        } else {
+//            Requirements::customScript(
+//                "var _noCaptchaFields=_noCaptchaFields || [];_noCaptchaFields.push('".$this->ID()."');",
+//                "NocaptchaField-" . $this->ID()
+//            );
+//            Requirements::javascript('undefinedoffset/silverstripe-nocaptcha:javascript/NocaptchaField_noHandler_v2.js');
+//        }
     }
 
     /**
